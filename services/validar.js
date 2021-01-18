@@ -5,7 +5,7 @@ const retornarMensagemDeErro = (tipo, validity) => {
 
     let mensagemDeErro = "";
 
-    const tiposDeErro = ["valueMissing", "typeMismatch", "tooShort", "rangeUnderflow"];
+    const tiposDeErro = ["valueMissing", "typeMismatch", "tooShort", "rangeUnderflow", "customError"];
 
     const mensagensDeErro = {
         email: {
@@ -23,7 +23,7 @@ const retornarMensagemDeErro = (tipo, validity) => {
         },
         cpf: {
             valueMissing: "O CPF é necessário",
-            customError: "Este não é um cpf válido"
+            customError: "Este não é um CPF válido"
         },
         rg: {
             valueMissing: "O RG é necessário",
