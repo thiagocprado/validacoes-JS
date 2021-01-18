@@ -5,7 +5,11 @@ window.onload = () => { // só executa a função quando a página estiver carre
 
     inputs.forEach(input => {
         input.addEventListener("input", () => {
-            validarInput(input);
+            validarInput(input, false);
         });
+
+        input.addEventListener('blur', () => {
+            validarInput(input);
+        })
     });
 }
