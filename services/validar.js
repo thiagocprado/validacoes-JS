@@ -1,11 +1,13 @@
 import { validarDataNascimento } from "./validarDataNascimento.js";
 import { validarCPF } from "./validarCPF.js";
+import { recuperarEndereco } from "./recuperarEndereco.js";
+import { validarPreco } from "./validarPreco.js";
 
 const retornarMensagemDeErro = (tipo, validity) => {
 
     let mensagemDeErro = "";
 
-    const tiposDeErro = ["valueMissing", "typeMismatch", "tooShort", "rangeUnderflow", "customError"];
+    const tiposDeErro = ["valueMissing", "typeMismatch", "tooShort", "rangeUnderflow", "customError", "patternMismatch"];
 
     const mensagensDeErro = {
         email: {
@@ -30,6 +32,8 @@ const retornarMensagemDeErro = (tipo, validity) => {
         },
         cep: {
             valueMissing: "O CEP é necessário",
+            patternMismatch: "Este não é um CEP válido",
+            customError: "Este não é um CEP válido"
         },
         logradouro: {
             valueMissing: "O logradouro é necessário",
@@ -39,6 +43,13 @@ const retornarMensagemDeErro = (tipo, validity) => {
         },
         estado: {
             valueMissing: "O estado é necessário",
+        },
+        preco: {
+            valueMissing: "O preço é necessário",
+            customError: "O valor do produto deve ser maior do que R$0,00"
+        },
+        nomeProduto: {
+            valueMissing: "O nome do produto é necessário",
         }
     }
 
@@ -64,7 +75,9 @@ export const validarInput = (input, adicionarErro = true) => {
     const tipo = input.dataset.tipo;
     const validadoresEspecificos = {
         dataNascimento: input => validarDataNascimento(input),
-        cpf: input => validarCPF(input)
+        cpf: input => validarCPF(input),
+        cep: input => recuperarEndereco(input),
+        preco: input => validarPreco(input)
     }
 
     if (validadoresEspecificos[tipo]) {
